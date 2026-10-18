@@ -1,5 +1,3 @@
-### echo
-
 I develop software primarily for my own use and publish it for anyone else who finds it useful.
 
 The aim is software that keeps your work safe and your data portable, stays out of your way, and improves with each release.
