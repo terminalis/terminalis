@@ -1,6 +1,5 @@
 const $ = selector => document.querySelector(selector);
 const INK = '#2a1f14';
-const releaseDate = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
 
 function fit(canvas, cssW, cssH) {
   const k = window.devicePixelRatio || 1;
@@ -107,15 +106,6 @@ function drawMoth(narrow) {
   ctx.stroke();
 }
 
-async function showReleases() {
-  const response = await fetch('/packages/releases.json');
-  if (!response.ok) return;
-  for (const { name, tag, published } of await response.json()) {
-    const cell = $(`[data-release="${name}"]`);
-    if (cell) cell.textContent = `${tag}, ${releaseDate.format(new Date(published))}`;
-  }
-}
-
 function showWeight() {
   const entries = [...performance.getEntriesByType('navigation'), ...performance.getEntriesByType('resource')];
   const kb = Math.round(entries.reduce((sum, entry) => sum + entry.decodedBodySize, 0) / 1024);
@@ -138,5 +128,5 @@ addEventListener('resize', () => {
   clearTimeout(resizing);
   resizing = setTimeout(draw, 120);
 });
-addEventListener('load', () => showReleases().catch(() => {}).finally(showWeight));
+addEventListener('load', showWeight);
 document.fonts.ready.then(draw);
