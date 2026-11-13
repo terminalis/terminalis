@@ -31,9 +31,8 @@ code{font:inherit;overflow-wrap:anywhere}
 code span{font-size:0;white-space:nowrap}
 code span::before{content:"\2026";font-size:1rem}
 button{font:inherit;color:var(--paper);background:var(--ink);border:0;padding:0 8px;margin-left:8px;cursor:pointer}
-.notes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;border-top:1px solid var(--ink);margin:0 var(--pad);padding:20px 0 0}
-.notes dt em{font-size:22px}
-.notes dd{margin:4px 0 0;font-size:13px}
+.notes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;border-top:1px solid var(--ink);margin:0 var(--pad);padding:20px 0 0;list-style:none}
+.notes li{font-size:13px}
 footer{padding:44px var(--pad) 56px;display:flex;flex-wrap:wrap;gap:6px 24px;font-size:13px}
 footer span{flex-basis:100%}
 @media (max-width:1099px){
