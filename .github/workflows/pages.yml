@@ -1,0 +1,59 @@
+name: pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/configure-pages@v6
+
+      - name: Write each app's newest release into the page
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp -r site _site
+          python3 - <<'EOF'
+          import html, json, re, subprocess
+          from datetime import datetime
+          from pathlib import Path
+
+          def fill(match):
+              name = match.group(1)
+              out = subprocess.run(['gh', 'api', f'repos/terminalis/{name}/releases/latest'], check=True, capture_output=True, text=True).stdout
+              release = json.loads(out)
+              published = datetime.fromisoformat(release['published_at'].replace('Z', '+00:00'))
+              return f'<div class="figs" data-release="{name}">{html.escape(release["tag_name"])}, {published.day} {published:%b %Y}</div>'
+
+          page = Path('_site/index.html')
+          text, count = re.subn(r'<div class="figs" data-release="([a-z0-9-]+)"></div>', fill, page.read_text())
+          assert count
+          page.write_text(text)
+          EOF
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v5
