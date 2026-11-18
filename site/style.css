@@ -20,13 +20,12 @@ h1{font-size:clamp(72px,10.4vw,168px);line-height:.95;margin:0}
 .fig{position:absolute;margin:0;font-size:18px;left:var(--figx,60%);top:var(--figy,88%);white-space:nowrap}
 .fig em{font-size:21px}
 .legend{padding:40px var(--pad) 0}
-.row{display:grid;grid-template-columns:minmax(120px,1.1fr) minmax(0,3.4fr) auto;gap:6px 24px;border-top:1px solid var(--ink);padding:18px 0 26px}
+.row{display:grid;grid-template-columns:minmax(120px,1.1fr) minmax(0,3.4fr);gap:6px 24px;border-top:1px solid var(--ink);padding:18px 0 26px}
 .row h2{font-size:44px;line-height:1;margin:0}
 .row p{margin:0 0 12px}
-.row .ways{grid-column:2/4;display:grid;grid-template-columns:72px minmax(0,1fr);gap:4px 12px;margin:0}
+.row .ways{grid-column:2;display:grid;grid-template-columns:72px minmax(0,1fr);gap:4px 12px;margin:0}
 .ways dd{margin:0;min-width:0}
 .ways dt{opacity:.66}
-.figs{text-align:right;white-space:nowrap}
 code{font:inherit;overflow-wrap:anywhere}
 code span{font-size:0;white-space:nowrap}
 code span::before{content:"\2026";font-size:1rem}
@@ -46,6 +45,5 @@ footer span{flex-basis:100%}
   .row{grid-template-columns:minmax(0,1fr)}
   .row .ways{grid-column:auto;grid-template-columns:minmax(0,1fr)}
   .ways dd{margin-bottom:10px}
-  .figs{text-align:left}
   .notes{grid-template-columns:minmax(0,1fr)}
 }
